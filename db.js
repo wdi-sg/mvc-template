@@ -1,6 +1,8 @@
 const pg = require('pg');
-const pokemon = require('./models/pokemon');
+const tweet = require('./models/tweet');
+
 const user = require('./models/user');
+
 const url = require('url');
 
 
@@ -22,9 +24,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'apple',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -39,14 +41,10 @@ pool.on('error', function (err) {
 module.exports = {
   /*
    * ADD APP MODELS HERE
-   */
-  //pokemon: pokemon(pool),
+  */
+  tweet: tweet(pool),
 
-
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
+  user: user(pool),
 
   // get a reference to end the connection pool at server end
   pool:pool
