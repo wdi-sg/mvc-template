@@ -10,8 +10,19 @@ module.exports = (db) => {
    }
 
    const create = (request, response) => {
-        db.user.create(request.body, (error, queryResult)=> {
-        response.send("User created");
+        db.user.create(request.body, (error, user)=> {
+            if (error) {
+                response.send("error");
+            }
+            else {
+                if (user===null) {
+                    response.send("User name has already been used. Please choose another name.");
+                }
+
+                else {
+                    response.send('user created');
+                }
+            }
         })
     }
 

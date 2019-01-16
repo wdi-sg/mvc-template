@@ -18,8 +18,40 @@ module.exports = (db) => {
         })
     }
 
+    const createForm = (request, response)=> {
+        db.tweet.createForm(request.body, (error, user) => {
+            if (error) {
+                response.send("error");
+            }
+
+            else {
+                if (user === null) {
+                    response.send("incorrect password")
+                }
+
+                else {
+                    response.cookie("id", user.id);
+                    response.render('tweet/createtweet', user);
+                }
+            }
+        })
+    }
+
+    const create = (request, response)=> {
+        db.tweet.create(request.body, request.cookies["id"], (error)=> {
+            if (error) {
+                response.send("error");
+            }
+
+            else {
+                response.send(request.body);
+            }
+        })
+    }
 
     return {
-        get
+        get,
+        createForm,
+        create
     }
 }
