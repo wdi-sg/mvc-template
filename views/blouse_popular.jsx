@@ -1,20 +1,40 @@
 var React = require("react");
 
+class ListItem extends React.Component {
+    render() {
+        let urlAction = `/blouse/${this.props.item.img_id}`;
+        let price = `SGD ${this.props.item.price}`;
+        let popularity =`Sold per day: ${Math.floor(this.props.item.popularity)}`
+        return (
+            <div className="box">
+            <a href={urlAction}><img src={this.props.item.img_path}/></a>
+            <h6>{popularity}</h6>
+            <h6>{price}</h6>
+            <div className="text">{this.props.item.description}</div>
+            </div>
+        );
+    }
+}
+
 class Home extends React.Component {
     render() {
-    let loginMessage;
-    if (this.props.email=== undefined || this.props.email=== 'j:null') {
-        loginMessage = "Login";
-    }
-    else {
-        loginMessage = this.props.email;
-    }
+        let loginMessage;
+        if (this.props.email===undefined || this.props.email=== 'j:null') {
+            loginMessage = "Login"
+        }
+        else {
+            loginMessage = this.props.email;
+        }
+        function createDiv(item, index) {
+            return <ListItem key={index} item={item}> </ListItem>;
+        }
+        let itemsElement = this.props.item.map(createDiv);
 
     return (
       <html>
         <head>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"/>
-            <link rel="stylesheet" href="/css/home_styles.css"/>
+            <link rel="stylesheet" href="/css/home_blouse_styles.css"/>
         </head>
         <body>
             <div className="container">
@@ -30,23 +50,12 @@ class Home extends React.Component {
                 </div>
                 <div className="row" id="content">
                     <div className="col-2">
-                        <h6> Search By </h6>
-                        <div><a className="nav" href="/blouse"> Blouses </a></div>
-                        <div><a className="nav" href=""> T-shirts </a></div>
-                        <div><a className="nav" href=""> Pants </a></div>
-                        <div><a className="nav" href=""> Skirts </a></div>
-                        <div><a className="nav" href=""> Dresses </a></div>
+                        <h6> Search blouse by</h6>
+                        <div><a className="nav" href="/byprice/blouse"> Price</a></div>
+                        <div><a className="nav" href="/bypopularity/blouse"> Popularity</a></div>
                     </div>
                     <div className="col-10">
-                        <div className="row">
-                            <img src="/image/blouse/1.jpg"/> <img src="/image/blouse/2.jpg"/> <img src="/image/blouse/3.jpg"/><img src="/image/blouse/4.jpg"/>
-                        </div>
-                        <div className="row">
-                            <img src="/image/blouse/5.jpg"/> <img src="/image/blouse/6.jpg"/> <img src="/image/blouse/7.jpg"/><img src="/image/blouse/8.jpg"/>
-                        </div>
-                        <div className="row">
-                            <img src="/image/blouse/9.jpg"/> <img src="/image/blouse/10.jpg"/> <img src="/image/blouse/11.jpg"/><img src="/image/blouse/12.jpg"/>
-                        </div>
+                    {itemsElement}
                     </div>
                 </div>
                 <div className="row justify-content-md-center" id="footer">

@@ -22,9 +22,23 @@ module.exports = (db) => {
         })
     }
 
+    const blouseByPrice = (request, response)=> {
+        db.product.blouseByPrice(request.cookies['email'], (error,obj)=> {
+            response.render("home_blouse", obj);
+        })
+    }
+
+    const blouseByPopularity = (request, response)=> {
+        db.product.blouseByPopularity(request.cookies['email'], (error, obj)=> {
+            response.render("blouse_popular", obj);
+        })
+    }
+
     return {
         get,
         getAllBlouse,
-        getABlouse
+        getABlouse,
+        blouseByPrice,
+        blouseByPopularity
     }
 }

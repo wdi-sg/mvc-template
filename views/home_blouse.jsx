@@ -3,9 +3,11 @@ var React = require("react");
 class ListItem extends React.Component {
     render() {
         let urlAction = `/blouse/${this.props.item.img_id}`;
+        let price = `SGD ${this.props.item.price}`;
         return (
             <div className="box">
             <a href={urlAction}><img src={this.props.item.img_path}/></a>
+            <h6>{price}</h6>
             <div className="text">{this.props.item.description}</div>
             </div>
         );
@@ -15,7 +17,7 @@ class ListItem extends React.Component {
 class Home extends React.Component {
     render() {
         let loginMessage;
-        if (this.props.email===undefined) {
+        if (this.props.email===undefined || this.props.email=== 'j:null') {
             loginMessage = "Login"
         }
         else {
@@ -41,14 +43,14 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">{loginMessage}</a> <a href="">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">{loginMessage}</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="row" id="content">
                     <div className="col-2">
-                        <h6> Search Blouse By </h6>
-                        <div> <button> Price</button> </div>
-                        <div> <button> Popularity</button> </div>
+                        <h6> Search blouse by</h6>
+                        <div><a className="nav" href="/byprice/blouse"> Price</a></div>
+                        <div><a className="nav" href="/bypopularity/blouse"> Popularity</a></div>
                     </div>
                     <div className="col-10">
                     {itemsElement}

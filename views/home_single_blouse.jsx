@@ -3,7 +3,7 @@ var React = require("react");
 class Home extends React.Component {
     render() {
     let loginMessage;
-    if (this.props.email === undefined) {
+    if (this.props.email === undefined || this.props.email=== 'j:null') {
         loginMessage = "Login";
     }
     else {
@@ -33,7 +33,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">{loginMessage}</a> <a href="">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">{loginMessage}</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="p-3 mb-2 bg-light text-dark">
@@ -43,7 +43,7 @@ class Home extends React.Component {
                         </div>
                         <div className="col-9">
                             {this.props.item.description}
-                            <h2> {`SGD${this.props.item.price}`}</h2>
+                            <h2> {`SGD ${this.props.item.price}`}</h2>
                             <form action={urlAction} method="POST">
                                 <div className="requestGr">
                                     <div className="input-group mb-3">

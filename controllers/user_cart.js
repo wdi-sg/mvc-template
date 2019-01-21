@@ -5,7 +5,7 @@ module.exports = (db) => {
    * ===========================================
    */
     const addToCart = (request, response) => {
-        if (request.cookies['email'] === undefined) {
+        if (request.cookies['email'] === undefined || request.cookies['email'] === 'j:null') {
             response.render("home_login", {"email": request.cookies['email']});
         }
         else {
@@ -14,16 +14,11 @@ module.exports = (db) => {
                         response.send(error);
                     }
                     else {
-                        if (successfulLogin && enoughStock) {
-                            response.render("home", {"email": request.cookies['email']});
+                        if (!successfulLogin) {
+                            response.send("Please login through proper channel");
                         }
-
-                        else if (!successfulLogin) {
-                            response.send("Please login in through proper channel");
-                        }
-
                         else {
-                            response.send("Not enough stock to proceed with add to cart.");
+                            response.render("home", {"email": request.cookies['email']});
                         }
                     }
             });
@@ -51,16 +46,38 @@ module.exports = (db) => {
                     response.send("Please login through proper channel.");
                 }
                 else {
-                    response.send( successfulPayment);
+                    if (!successfulPayment) {
+                        response.render("home", {"email": request.cookies['email']});
+                    }
+                    else {
+                        response.render("successful_payment", {"email": request.cookies['email']});
+                    }
                 }
             }
-
         })
-   }
+    }
+
+    const cancelpayment =(request, response)=> {
+        if (request.cookies['email'] === undefined || request.cookies['email'] === 'j:null') {
+            response.render("home_login");
+        }
+
+        else {
+            db.user_cart.cancelpayment(request.cookies['email'], (error)=> {
+                if (error) {
+                    response.send(error);
+                }
+                else {
+                    response.render("home", {"email": request.cookies['email']});
+                }
+            })
+        }
+    }
 
     return {
         addToCart,
         displayCart,
-        updated
+        updated,
+        cancelpayment
     };
 }

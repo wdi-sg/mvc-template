@@ -23,7 +23,7 @@ class ListItem extends React.Component {
 class Home extends React.Component {
     render() {
         let loginMessage;
-        if (this.props.email===undefined) {
+        if (this.props.email===undefined || this.props.email=== 'j:null') {
             loginMessage = "Login"
         }
         else {
@@ -54,7 +54,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">{loginMessage}</a> <a href="">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">{loginMessage}</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="row" id="content">
@@ -73,6 +73,10 @@ class Home extends React.Component {
                         <form action="/payment/?_method=put" method="POST">
                             <br/>
                             <button type="submit" className="btn btn-primary">Proceed With Payment</button>
+                        </form>
+                        <form action="/cancelpayment/?_method=delete" method="POST">
+                            <br/>
+                            <button type="submit" className="btn btn-primary">Cancel Order</button>
                         </form>
                         <br/>
                     </div>

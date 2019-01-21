@@ -33,9 +33,19 @@ module.exports = (dbPoolInstance) => {
         return newArray;
     }
 
+    var getMax = function(Array) {
+        let max = Array[0];
+        for (let i=1; i<Array.length; i++) {
+            if (Array[i] > max) {
+                max = Array[i];
+            }
+        }
+        return [max];
+    }
+
     return {
         getAllBlouse: (email, callback) => {
-            let queryText = 'SELECT description,img_path,img_id FROM product WHERE type_of_product=$1';
+            let queryText = 'SELECT description, price, img_path,img_id FROM product WHERE type_of_product=$1';
             let values = ['blouse'];
             dbPoolInstance.query(queryText, values, (error, result)=> {
                 let objArray = result.rows;
@@ -83,13 +93,100 @@ module.exports = (dbPoolInstance) => {
                     size.push(result.rows[i].size);
                     color.push(result.rows[i].color);
                 }
-                item.size = reduceByArray(size);
+                size = reduceByArray(size);
+                listOfSize = ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
+                sortSize = [];
+                for(let i=0; i<listOfSize.length; i++) {
+                    for(let j=0; j<size.length; j++) {
+                        if(listOfSize[i] === size[j]) {
+                            sortSize.push(listOfSize[i]);
+                            break;
+                        }
+                    }
+                }
+                item.size = sortSize;
                 item.color = reduceByArray(color);
                 let obj = { "email" : email,
                             "item": item
                            }
                 callback(error, obj);
             })
-        }
+        },
+
+        blouseByPrice: (email, callback) => {
+            let queryText = 'SELECT description,img_path,img_id,price FROM product WHERE type_of_product=$1';
+            let values = ['blouse'];
+            dbPoolInstance.query(queryText, values, (error, result)=> {
+                let objItem = result.rows;
+                objItem = reduceByObj(objItem);
+                for (let i=0; i<objItem.length-1; i++) {
+                    let minPrice = Number(objItem[i].price);
+                    let index = i;
+                    for (let j=i+1; j<objItem.length; j++) {
+                        if (Number(objItem[j].price) < minPrice) {
+                            minPrice = Number(objItem[j].price);
+                            index = j;
+                        }
+                    }
+                    if (i !== index) {
+                        let tempObj = objItem[i];
+                        objItem[i] = objItem[index];
+                        objItem[index] = tempObj;
+                    }
+                }
+                let obj = { "email" : email,
+                            "item": objItem
+                           }
+                callback(error, obj);
+            })
+        },
+
+        blouseByPopularity: (email, callback) => {
+            let queryText = 'SELECT description,img_path,img_id,price,date_created FROM product WHERE type_of_product=$1';
+            let values = ['blouse'];
+            dbPoolInstance.query(queryText, values, (error, queryResult)=> {
+                let objItem = queryResult.rows;
+                objItem = reduceByObj(objItem);
+                let queryText = 'SELECT img_id,sold FROM product WHERE type_of_product=$1';
+                let values = ['blouse'];
+                dbPoolInstance.query(queryText, values, (error, queryResult)=> {
+                    let objComplete = queryResult.rows;
+                    for (let i=0; i<objItem.length; i++) {
+                        objItem[i].sold = 0;
+                        for (let j=0; j<objComplete.length; j++) {
+                            if (objItem[i].img_id === objComplete[j].img_id) {
+                                objItem[i].sold = objItem[i].sold + objComplete[j].sold;
+                            }
+                        }
+                        if (objItem[i].sold > 0) {
+                            let duration = (new Date() - Date.parse(objItem[i].date_created))/3600000;
+                            objItem[i].popularity = objItem[i].sold / duration * 24;
+                        }
+                        else {
+                            objItem[i].popularity = 0;
+                        }
+                    }
+                    for (let i=0; i<objItem.length-1; i++) {
+                        let maxPopularity = objItem[i].popularity;
+                        let index = i;
+                        for (let j=i+1; j<objItem.length; j++) {
+                            if (objItem[j].popularity > maxPopularity) {
+                                maxPopularity = objItem[j].popularity;
+                                index = j;
+                            }
+                        }
+                        if (i !== index) {
+                            let tempObj = objItem[i];
+                            objItem[i] = objItem[index];
+                            objItem[index] = tempObj;
+                        }
+                    }
+                    let obj = { "email" : email,
+                               "item": objItem
+                             }
+                    callback(error, obj);
+                })
+            })
+        },
     }
 }

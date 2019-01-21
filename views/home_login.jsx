@@ -7,7 +7,7 @@ class Home extends React.Component {
       <html>
         <head>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"/>
-            <link rel="stylesheet" href="css/home_styles.css"/>
+            <link rel="stylesheet" href="/css/home_styles.css"/>
         </head>
         <body>
             <div className="container">
@@ -18,7 +18,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">Login</a> <a href="">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">Login</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="p-3 mb-2 bg-light text-dark">

@@ -46,10 +46,19 @@ module.exports = (db) => {
         response.render("home_signup");
    }
 
+    const logout = (request, response)=> {
+        if (request.cookies['email'] !== undefined) {
+            response.cookie('email', null);
+            response.cookie('passwordHash', null);
+        }
+        response.render("home", {"email": request.cookies['email']});
+    }
+
    return {
         login,
         checkUser,
         signup,
-        checkLogin
+        checkLogin,
+        logout
    };
 }

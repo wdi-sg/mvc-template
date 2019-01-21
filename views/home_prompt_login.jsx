@@ -19,7 +19,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">Login</a> <a href="">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">Login</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="p-3 mb-2 bg-light text-dark">

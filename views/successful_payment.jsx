@@ -3,7 +3,7 @@ var React = require("react");
 class Home extends React.Component {
     render() {
     let loginMessage;
-    if (this.props.email=== undefined || this.props.email=== 'j:null') {
+    if (this.props.email === undefined || this.props.email=== 'j:null') {
         loginMessage = "Login";
     }
     else {
@@ -25,7 +25,7 @@ class Home extends React.Component {
                 </div>
                 <div className="row justify-content-md-center">
                     <div className="col-d-auto">
-                        <a href="/login">{loginMessage}</a> <a href="/logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
+                        <a href="/login">{loginMessage}</a> <a href="logout">Logout</a> <a href="/mycart">My Cart</a> <a href="/signup">Sign Up</a>
                     </div>
                 </div>
                 <div className="row" id="content">
@@ -38,15 +38,7 @@ class Home extends React.Component {
                         <div><a className="nav" href=""> Dresses </a></div>
                     </div>
                     <div className="col-10">
-                        <div className="row">
-                            <img src="/image/blouse/1.jpg"/> <img src="/image/blouse/2.jpg"/> <img src="/image/blouse/3.jpg"/><img src="/image/blouse/4.jpg"/>
-                        </div>
-                        <div className="row">
-                            <img src="/image/blouse/5.jpg"/> <img src="/image/blouse/6.jpg"/> <img src="/image/blouse/7.jpg"/><img src="/image/blouse/8.jpg"/>
-                        </div>
-                        <div className="row">
-                            <img src="/image/blouse/9.jpg"/> <img src="/image/blouse/10.jpg"/> <img src="/image/blouse/11.jpg"/><img src="/image/blouse/12.jpg"/>
-                        </div>
+                        <h2>Successful payment for all items in the cart. Thank you for shopping with Purpur Boutique.</h2>
                     </div>
                 </div>
                 <div className="row justify-content-md-center" id="footer">
