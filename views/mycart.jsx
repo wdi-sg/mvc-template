@@ -1,26 +1,55 @@
 var React = require("react");
 
+class ListItem extends React.Component {
+    render() {
+        let type = `Type: ${this.props.item.type}`;
+        let price = `Price: SGD${this.props.item.price}`;
+        let size = `Size: ${this.props.item.size}`;
+        let color = `Color: ${this.props.item.color}`;
+        let num = `Num of pieces: ${this.props.item.num}`;
+        return (
+            <div className="box">
+            <img src={this.props.item.img_path}/>
+            <h6>{type}</h6>
+            <h6>{price}</h6>
+            <h6>{size}</h6>
+            <h6>{color}</h6>
+            <h6>{num}</h6>
+            </div>
+        );
+    }
+}
+
 class Home extends React.Component {
     render() {
-    let loginMessage;
-    if (this.props.email === undefined) {
-        loginMessage = "Login";
-    }
-    else {
-        loginMessage = this.props.email;
-    }
+        let loginMessage;
+        if (this.props.email===undefined) {
+            loginMessage = "Login"
+        }
+        else {
+            loginMessage = this.props.email;
+        }
+        function createDiv(item, index) {
+            return <ListItem key={index} item={item}> </ListItem>;
+        }
+        let itemsElement = this.props.item.map(createDiv);
 
     return (
       <html>
         <head>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"/>
-            <link rel="stylesheet" href="/css/home_styles.css"/>
+            <link rel="stylesheet" href="/css/home_blouse_styles.css"/>
         </head>
         <body>
             <div className="container">
                  <div className="row justify-content-md-center">
                     <div className="col-md-auto">
                         <h1>Purpur Boutique</h1>
+                    </div>
+                </div>
+                <div className="row justify-content-md-center">
+                    <div className="col-md-auto">
+                        <h1>My Cart</h1>
                     </div>
                 </div>
                 <div className="row justify-content-md-center">
@@ -38,15 +67,14 @@ class Home extends React.Component {
                         <div><a className="nav" href=""> Dresses </a></div>
                     </div>
                     <div className="col-10">
-                        <div className="row">
-                            <img src="/image/blouse/1.jpg"/> <img src="/image/blouse/2.jpg"/> <img src="/image/blouse/3.jpg"/><img src="/image/blouse/4.jpg"/>
+                        <div>
+                            {itemsElement}
                         </div>
-                        <div className="row">
-                            <img src="/image/blouse/5.jpg"/> <img src="/image/blouse/6.jpg"/> <img src="/image/blouse/7.jpg"/><img src="/image/blouse/8.jpg"/>
-                        </div>
-                        <div className="row">
-                            <img src="/image/blouse/9.jpg"/> <img src="/image/blouse/10.jpg"/> <img src="/image/blouse/11.jpg"/><img src="/image/blouse/12.jpg"/>
-                        </div>
+                        <form action="/payment/?_method=put" method="POST">
+                            <br/>
+                            <button type="submit" className="btn btn-primary">Proceed With Payment</button>
+                        </form>
+                        <br/>
                     </div>
                 </div>
                 <div className="row justify-content-md-center" id="footer">

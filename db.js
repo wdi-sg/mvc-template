@@ -1,10 +1,11 @@
 const pg = require('pg');
-const tweet = require('./models/tweet');
+const product = require('./models/product');
 
 const user = require('./models/user');
 
-const url = require('url');
+const user_cart = require('./models/user_cart');
 
+const url = require('url');
 
 var configs;
 
@@ -26,11 +27,12 @@ if( process.env.DATABASE_URL ){
   configs = {
     user: 'apple',
     host: '127.0.0.1',
-    database: 'tweedr',
+    database: 'purpur',
     port: 5432
   };
 }
 
+const sha256 = require('js-sha256');
 
 const pool = new pg.Pool(configs);
 
@@ -42,10 +44,13 @@ module.exports = {
   /*
    * ADD APP MODELS HERE
   */
-  tweet: tweet(pool),
+  product: product(pool),
 
   user: user(pool),
 
+  user_cart: user_cart(pool),
+
   // get a reference to end the connection pool at server end
   pool:pool
+
 };

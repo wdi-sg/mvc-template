@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-react-views": "^0.10.5",
+    "js-sha256": "^0.9.0",
     "method-override": "^2.3.10",
     "pg": "^7.8.0",
     "react": "^16.7.0",
@@ -27,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/SiewLeng/mvc-template/issues"
   },
-  "homepage": "https://github.com/SiewLeng/mvc-template#readme"
+  "homepage": "https://github.com/SiewLeng/mvc-template#readme",
+  "devDependencies": {}
 }

@@ -11,8 +11,8 @@ const db = require('./db');
 
 // Init express app
 const app = express();
-
 // Set up middleware
+app.use(express.static(__dirname+'/public/'));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(express.urlencoded({
@@ -33,7 +33,6 @@ app.engine('jsx', reactEngine);
 
 // Import routes to match incoming requests
 require('./routes')(app, db);
-
 
 /**
  * ===================================

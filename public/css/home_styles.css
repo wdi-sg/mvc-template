@@ -1,0 +1,48 @@
+.container {
+	width: 1000px;
+	background-color: pink;
+}
+
+h1 {
+	font-size: 60px;
+}
+
+a {
+	display: inline-block;
+	padding: 5px;
+	margin: 1px;
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+
+a.nav {
+	width: 90px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+
+.col-10 {
+	background-color: #DCDCDC;
+}
+
+.col-2 {
+	background-color: #DCDCDC;
+}
+
+img {
+	display: inline-block;
+	height: 200px;
+	width: 200px;
+	margin: 4px;
+}
+
+.row {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.col-2{
+	padding: 10px;
+}
