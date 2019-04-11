@@ -1,12 +1,20 @@
-module.exports = (app, db) => {
+module.exports = (app, allModels) => {
 
-  //const pokemons = require('./controllers/pokemon')(db);
 
   /*
    *  =========================================
-   *  Routes for one controller
+   *  =========================================
+   *  =========================================
+   *  =========================================
+   *    ALL ROUTES FOR POKEMON CONTROLLER
+   *  =========================================
+   *  =========================================
    *  =========================================
    */
 
-  //app.get('/pokemons', pokemons.index);
+  // require the controller
+  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+
+  app.get('/pokemons', pokemonControllerCallbacks.index);
+  //app.get('/pokemons/:id', pokemons.getPokemon);
 };

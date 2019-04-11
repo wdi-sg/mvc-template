@@ -6,7 +6,7 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let index = (request, response) => {
+  let indexControllerCallback = (request, response) => {
       db.pokemon.getAll((error, allPokemon) => {
         response.render('pokemon/index', { allPokemon });
       });
@@ -19,7 +19,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index,
+    index: indexControllerCallback,
   };
 
 }

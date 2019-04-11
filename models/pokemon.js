@@ -7,11 +7,11 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (type_id, callback) => {
-    const values = [type_id];
+  let getAll = (callback) => {
+
     let query = 'SELECT * FROM pokemons';
 
-    dbPoolInstance.query(query, values, (error, queryResult) => {
+    dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
 
         // invoke callback function with results after query has executed
@@ -34,6 +34,5 @@ module.exports = (dbPoolInstance) => {
 
   return {
     getAll,
-    //get,
   };
 };
